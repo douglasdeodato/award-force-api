@@ -28,8 +28,14 @@ if response.status_code == 200:
     # Parse the JSON response
     data = response.json()
     
-    # Print or save the JSON data
-    print(json.dumps(data, indent=4))  # Pretty print the JSON
+    # Define the filename for the JSON file inside the 'get-user-by-email' folder
+    json_filename = os.path.join(root_dir, 'get-user-by-email', 'output.json')
+
+    # Write the JSON data to the file
+    with open(json_filename, 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+
+    print(f"JSON data has been saved to {json_filename}")
 else:
     print(f"Request failed with status code: {response.status_code}")
     print(response.text)  # Print the response content if there's an error
