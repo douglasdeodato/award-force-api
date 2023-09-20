@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 # Define the path to the root directory where .env is located
-root_dir = os.path.join(os.path.dirname(__file__), '..', '..')  # Adjust the number of '..' as needed
+root_dir = os.path.join(os.path.dirname(__file__), '..')  # Adjust the number of '..' as needed
 
 # Load environment variables from the .env file in the root directory
 dotenv_path = os.path.join(root_dir, '.env')
