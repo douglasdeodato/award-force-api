@@ -1,3 +1,4 @@
 get-user-by-email/*.json
+get-auth-token/*.json
 clean/
 .env
