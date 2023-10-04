@@ -13,7 +13,7 @@
     <br>
     {% if response_data %}
     <h2>Response Data:</h2>
-    <pre>{{ response_data }}</pre>
+    <pre id="response_data">{{ response_data|safe }}</pre>
     <br>
     <a href="/slug.json">Download JSON</a>
     {% endif %}
