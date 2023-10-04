@@ -1,5 +1,6 @@
 get-user-by-email/*.json
 get-auth-token/*.json
 get-slug-token/*.json
+SSO/*.json
 clean/
 .env
