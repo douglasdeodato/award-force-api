@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Request</title>
+</head>
+<body>
+    <h1>API Request</h1>
+    <form method="post">
+        <label for="email">Enter your email address:</label>
+        <input type="text" id="email" name="email" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    {% if response_data %}
+    <h2>Response Data:</h2>
+    <pre>{{ response_data }}</pre>
+    <br>
+    <a href="/slug.json">Download JSON</a>
+    {% endif %}
+</body>
+</html>

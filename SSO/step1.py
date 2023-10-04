@@ -2,7 +2,7 @@ import os
 import requests
 import json
 from dotenv import load_dotenv
-from flask import Flask, request, render_template_string, send_from_directory
+from flask import Flask, request, render_template, send_from_directory
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -22,29 +22,6 @@ headers = {
 
 # Define a debugging mode flag
 debug_mode = False
-
-# Define a template for the web form
-form_template = """
-<!DOCTYPE html>
-<html>
-<head>
-    <title>API Request</title>
-</head>
-<body>
-    <h1>API Request</h1>
-    <form method="post">
-        <label for="email">Enter your email address:</label>
-        <input type="text" id="email" name="email" required><br><br>
-        <input type="submit" value="Submit">
-    </form>
-    <br>
-    {% if response_data %}
-    <h2>Response Data:</h2>
-    <pre>{{ response_data }}</pre>
-    {% endif %}
-</body>
-</html>
-"""
 
 @app.route('/', methods=['GET', 'POST'])
 def api_request():
@@ -72,7 +49,7 @@ def api_request():
     else:
         response_data = None
 
-    return render_template_string(form_template, response_data=response_data)
+    return render_template('form_template.html', response_data=response_data)
 
 @app.route('/slug.json')
 def download_json():
