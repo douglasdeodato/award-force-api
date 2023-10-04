@@ -2,7 +2,7 @@ import os
 import requests
 import json
 from dotenv import load_dotenv
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template_string, send_from_directory
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -64,12 +64,20 @@ def api_request():
         if response.status_code == 200:
             data = response.json()
             response_data = json.dumps(data, indent=4)
+            # Save the JSON data to slug.json
+            with open('slug.json', 'w') as json_file:
+                json.dump(data, json_file, indent=4)
         else:
             response_data = f"Request failed with status code: {response.status_code}\n{response.text}"
     else:
         response_data = None
 
     return render_template_string(form_template, response_data=response_data)
+
+@app.route('/slug.json')
+def download_json():
+    # Serve the saved slug.json file
+    return send_from_directory('.', 'slug.json')
 
 if __name__ == '__main__':
     debug_mode = True  # Set debug_mode to True when running locally for debugging
