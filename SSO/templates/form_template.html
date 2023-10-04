@@ -13,9 +13,13 @@
     <br>
     {% if response_data %}
     <h2>Response Data:</h2>
-    <pre id="response_data">{{ response_data|safe }}</pre>
+    <pre>{{ response_data }}</pre>
     <br>
-    <a href="/slug.json">Download JSON</a>
+    {% endif %}
+
+    {% if auth_token %}
+    <h2>Authentication Token:</h2>
+    <pre>{{ auth_token }}</pre>
     {% endif %}
 </body>
 </html>
