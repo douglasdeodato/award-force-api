@@ -16,10 +16,12 @@
     <pre>{{ response_data }}</pre>
     <br>
     {% endif %}
-
+    
     {% if auth_token %}
     <h2>Authentication Token:</h2>
     <pre>{{ auth_token }}</pre>
+    <br>
+    <a href="{{ auth_token }}" target="_blank">Sign In</a>
     {% endif %}
 </body>
 </html>
