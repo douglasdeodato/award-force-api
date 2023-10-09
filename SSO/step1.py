@@ -7,19 +7,13 @@ from flask import Flask, request, render_template, send_from_directory, redirect
 # Initialize Flask app
 app = Flask(__name__)
 
-# Load environment variables from the .env file
-dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+# Load environment variables from the .env file in the main folder
+dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.env'))
 load_dotenv(dotenv_path)
 
 # Define the API keys from the .env file
 api_key = os.getenv("API_KEY")
 api_key_external = os.getenv("API_KEY_EXTERNAL")
-
-# Define the headers
-headers = {
-    'Accept': 'application/vnd.Creative Force.v2.1+json',
-    'x-api-key': api_key
-}
 
 # Define a debugging mode flag
 debug_mode = False
@@ -61,6 +55,12 @@ def generate_auth_token():
 def api_request():
     global debug_mode
 
+    # Define the headers here within the api_request function
+    headers = {
+        'Accept': 'application/vnd.Creative Force.v2.1+json',
+        'x-api-key': api_key
+    }
+
     if request.method == 'POST':
         user_email = request.form['email']
         api_url = f"https://api.cr4ce.com/user/{user_email}"
@@ -83,7 +83,7 @@ def api_request():
             auth_token = generate_auth_token()
 
             if auth_token:
-                return render_template('form_template.html', response_data=response_data, auth_token=auth_token)
+                return render_template('form_template.html', response_data=response_data, auth_token=auth_token, account_domain=os.getenv("ACCOUNT_DOMAIN"))
             else:
                 return render_template('form_template.html', response_data="Failed to generate authentication token.", auth_token=None)
         else:
@@ -99,7 +99,7 @@ def api_request():
             auth_token_data = json.load(auth_token_file)
             auth_token = auth_token_data.get('auth_token', '')
 
-    return render_template('form_template.html', response_data=response_data, auth_token=auth_token)
+    return render_template('form_template.html', response_data=response_data, auth_token=auth_token, account_domain=os.getenv("ACCOUNT_DOMAIN"))
 
 @app.route('/get-auth-token', methods=['GET'])
 def get_auth_token():
@@ -124,6 +124,9 @@ def sign_in():
     if account_domain and token:
         # Construct the sign-in URL
         sign_in_url = f"https://{account_domain}/login?token={token}"
+
+        # Print the sign-in URL for debugging
+        print(f"Debug: sign_in_url = {sign_in_url}")
 
         # Redirect the user to the sign-in URL
         return redirect(sign_in_url)
