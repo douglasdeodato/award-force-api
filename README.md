@@ -24,3 +24,24 @@ Authentication Token: auth-token-generated
 
 with the token I will redirect to the login page 
 sign_in_url = f"https://{account_domain}/login?token={token}"
+
+
+
+# sample .env file
+
+
+API_KEY= 
+API_URL=https://api.cr4ce.com/user/email@gmail.com
+
+API_KEY_EXTERNAL= 
+API_URL_EXTERNAL=https://api.cr4ce.com/user/slughere/auth-token
+
+
+ACCOUNT_DOMAIN=domain-name-here
+
+
+# SSO sample .env file
+
+API_KEY= 
+API_KEY_EXTERNAL= 
+ACCOUNT_DOMAIN=site-name-here
